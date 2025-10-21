@@ -25,14 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             // Get form data
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const phone = formData.get('phone');
-            const service = formData.get('service');
-            const message = formData.get('message');
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value || 'Not provided';
+            const service = document.getElementById('service').value;
+            const systemType = document.getElementById('system-type').value || 'Not specified';
+            const message = document.getElementById('message').value;
             
             // Create WhatsApp message
-            const whatsappMessage = `Hello Solar Assist!%0A%0AName: ${name}%0APhone: ${phone}%0AService Needed: ${service}%0AMessage: ${message}`;
+            const whatsappMessage = `Hello Solar Assist!%0A%0A*New Service Request*%0A%0AName: ${name}%0APhone: ${phone}%0AEmail: ${email}%0AService Needed: ${service}%0ASystem Type: ${systemType}%0AMessage: ${message}`;
             
             // Redirect to WhatsApp
             window.open(`https://wa.me/8281770660?text=${whatsappMessage}`, '_blank');
@@ -46,12 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Add active class to current page in navigation
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentPage = window.location.pathname.split('/').pop();
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
-        if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+        if (linkHref === currentPage) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
