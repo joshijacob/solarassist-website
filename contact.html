@@ -3,291 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Solar Assist</title>
-    <meta name="description" content="Contact Solar Assist for solar maintenance services in Changanacherry, Kottayam. Call 8281770660 or send a message">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MBQN5N63');</script>
-    <!-- End Google Tag Manager -->
+    <title>Solar Assist - Contact Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a6d34 0%, #2ecc71 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 20px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card h3 {
+            color: #1a6d34;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .contact-card p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-title {
+            color: #1a6d34;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #2ecc71;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #1a6d34 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBQN5N63"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    
-    <!-- Header -->
     <header>
-        <div class="container header-container">
-            <div class="logo">
-                <a href="index.html">
-                    <i class="fas fa-sun logo-icon"></i>
-                    <div class="logo-text">Solar <span>Assist</span></div>
-                </a>
-            </div>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <nav class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="services.html" class="nav-link">Services</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
-                <a href="testimonials.html" class="nav-link">Testimonials</a>
-                <a href="contact.html" class="nav-link active">Contact</a>
-            </nav>
-            
-            <div class="cta-buttons">
-                <a href="tel:8281770660" class="btn btn-primary">
-                    <i class="fas fa-phone"></i> Call Now
-                </a>
-                <a href="https://wa.me/8281770660" class="btn btn-secondary" target="_blank">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-            </div>
+        <div class="container">
+            <div class="logo">Solar Assist</div>
+            <div class="tagline">Serving Changanachery and surrounding areas</div>
         </div>
     </header>
-
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="services.html" class="nav-link">Services</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="why-choose-us.html" class="nav-link">Why Choose Us</a>
-        <a href="testimonials.html" class="nav-link">Testimonials</a>
-        <a href="contact.html" class="nav-link active">Contact</a>
-        <div class="cta-buttons">
-            <a href="tel:8281770660" class="btn btn-primary">
-                <i class="fas fa-phone"></i> Call Now
-            </a>
-            <a href="https://wa.me/8281770660" class="btn btn-secondary" target="_blank">
-                <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
+    
+    <div class="container">
+        <div class="contact-info">
+            <div class="contact-card">
+                <h3>Call Us</h3>
+                <p>8281770660</p>
+                <p>Available 8:00 AM - 6:00 PM</p>
+            </div>
+            
+            <div class="contact-card">
+                <h3>WhatsApp</h3>
+                <p>8281770660</p>
+                <p>Quick responses for service queries</p>
+            </div>
+            
+            <div class="contact-card">
+                <h3>Email Us</h3>
+                <p>solarassist25@gmail.com</p>
+                <p>We respond within 24 hours</p>
+            </div>
+        </div>
+        
+        <div class="contact-form-container">
+            <h2 class="form-title">Contact Us</h2>
+            
+            <div id="message" class="message" style="display: none;"></div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="email" class="required">Email Address</label>
+                    <input type="email" id="email" name="email" value="joshijacob@gmail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="service" class="required">Service Required</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a service</option>
+                        <option value="Solar AMC" selected>Solar AMC</option>
+                        <option value="Installation">Installation</option>
+                        <option value="Repair">Repair</option>
+                        <option value="Consultation">Consultation</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="systemType">Solar System Type</label>
+                    <select id="systemType" name="systemType">
+                        <option value="">Select system type</option>
+                        <option value="On-Grid System" selected>On-Grid System</option>
+                        <option value="Off-Grid System">Off-Grid System</option>
+                        <option value="Hybrid System">Hybrid System</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="messageText" class="required">Message</label>
+                    <textarea id="messageText" name="message" rows="5" required>I need AMC for my solar plant</textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span id="btnText">Send Message</span>
+                    <span id="btnLoading" class="loading" style="display: none;"></span>
+                </button>
+            </form>
         </div>
     </div>
-
-    <!-- Page Content -->
-    <section class="section-padding">
-        <div class="container">
-            <h1 class="page-title">Contact <span>Us</span></h1>
-            
-            <div style="max-width: 800px; margin: 0 auto 40px; text-align: center;">
-                <p style="font-size: 16px;">Ready to optimize your solar system? Get in touch with our experts for a free consultation or immediate service.</p>
-            </div>
-            
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h2 style="margin-bottom: 25px; color: var(--dark);">Get In Touch</h2>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Our Location</h3>
-                            <p>Changanacherry, Kottayam, Kerala</p>
-                            <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">Serving Changanacherry and surrounding areas</p>
-                            <a href="https://maps.google.com/?q=Changanacherry,Kottayam,Kerala" class="btn direction-btn" target="_blank" style="margin-top: 8px;">
-                                <i class="fas fa-directions"></i> Get Directions
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Call Us</h3>
-                            <p><a href="tel:8281770660" style="color: var(--primary); text-decoration: none; font-size: 16px; font-weight: 600;">8281770660</a></p>
-                            <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">Available 8:00 AM - 6:00 PM</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <div>
-                            <h3>WhatsApp</h3>
-                            <p><a href="https://wa.me/8281770660" style="color: var(--primary); text-decoration: none; font-size: 16px; font-weight: 600;" target="_blank">8281770660</a></p>
-                            <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">Quick responses for service queries</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3>Email Us</h3>
-                            <p><a href="mailto:solarassist25@gmail.com" style="color: var(--primary); text-decoration: none; font-size: 16px; font-weight: 600;">solarassist25@gmail.com</a></p>
-                            <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">We respond within 24 hours</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h3>Working Hours</h3>
-                            <p>Monday - Saturday: 8:00 AM - 6:00 PM</p>
-                            <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">Emergency services available</p>
-                        </div>
-                    </div>
-                    
-                    <div class="emergency-contact">
-                        <h4 style="color: #856404; margin-bottom: 8px;"><i class="fas fa-exclamation-triangle"></i> Emergency Service</h4>
-                        <p style="color: #856404; margin-bottom: 8px; font-size: 13px;">For urgent solar system failures affecting your power supply</p>
-                        <a href="tel:8281770660" class="btn btn-primary" style="width: 100%; text-align: center; padding: 8px;">
-                            <i class="fas fa-phone"></i> Call for Emergency Service
-                        </a>
-                    </div>
-
-                    <!-- Google Maps -->
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125854.0643347387!2d76.46768594999999!3d9.44728945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b088363bb30b2e9%3A0x115b4e0d80f9a1b5!2sChanganassery%2C%20Kerala!5e0!3m2!1sen!2sin!4v1698320000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h2 style="margin-bottom: 18px; color: var(--dark);">Send us a Message</h2>
-                    <form id="contactForm" action="https://formspree.io/f/mjvnzqbg" method="POST">
-                        <div class="form-group">
-                            <label for="name">Your Name *</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="service">Service Required *</label>
-                            <select id="service" name="service" class="form-control" required>
-                                <option value="">Select a service</option>
-                                <option value="solar-amc">Solar AMC</option>
-                                <option value="maintenance">Solar Maintenance</option>
-                                <option value="panel-washing">Panel Washing</option>
-                                <option value="consultation">Consultation</option>
-                                <option value="emergency">Emergency Repair</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="system-type">Solar System Type</label>
-                            <select id="system-type" name="system-type" class="form-control">
-                                <option value="">Select system type</option>
-                                <option value="on-grid">On-Grid System</option>
-                                <option value="off-grid">Off-Grid System</option>
-                                <option value="hybrid">Hybrid System</option>
-                                <option value="micro-inverter">Micro Inverter System</option>
-                                <option value="not-sure">Not Sure</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" class="form-control" placeholder="Please describe your requirement or issue..." required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i> Send Message
-                        </button>
-                        
-                        <div id="formSuccess" class="form-success">
-                            <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="service-areas">
-                <h2 class="section-title">Areas We <span>Serve</span></h2>
-                <div class="features">
-                    <div class="feature">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Changanacherry</h3>
-                        <p>Our home base with fastest response times</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Kottayam Town</h3>
-                        <p>Regular service routes with scheduled visits</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Pala & Nearby</h3>
-                        <p>Extended service area with appointment booking</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Surrounding Areas</h3>
-                        <p>Service available throughout Kottayam district</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Solar Assist</h3>
-                    <p>Professional solar maintenance services in Changanacherry, Kottayam. Your trusted partner for solar system care.</p>
-                    <div class="social-links">
-                        <a href="https://wa.me/8281770660" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="tel:8281770660"><i class="fas fa-phone"></i></a>
-                        <a href="mailto:solarassist25@gmail.com"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="services.html#amc">Solar AMC</a></li>
-                        <li><a href="services.html#maintenance">Maintenance</a></li>
-                        <li><a href="services.html#washing">Panel Washing</a></li>
-                        <li><a href="services.html#consultation">Consultation</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> Changanacherry, Kottayam</p>
-                        <p><i class="fas fa-phone"></i> <a href="tel:8281770660">8281770660</a></p>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:solarassist25@gmail.com">solarassist25@gmail.com</a></p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 Solar Assist. All rights reserved.</p>
-            </div>
+            <p>&copy; 2023 Solar Assist. All rights reserved.</p>
         </div>
     </footer>
-
-    <script src="js/script.js"></script>
+    
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoading = document.getElementById('btnLoading');
+            const messageDiv = document.getElementById('message');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Sending...';
+            btnLoading.style.display = 'inline-block';
+            messageDiv.style.display = 'none';
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Simple validation
+            const email = formData.get('email');
+            const service = formData.get('service');
+            const message = formData.get('message');
+            
+            if (!email || !service || !message) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = 'Please fill in all required fields.';
+                messageDiv.style.display = 'block';
+                
+                // Reset button
+                submitBtn.disabled = false;
+                btnText.textContent = 'Send Message';
+                btnLoading.style.display = 'none';
+                return;
+            }
+            
+            // Send form data using AJAX
+            fetch('send_email.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    messageDiv.className = 'message success';
+                    messageDiv.textContent = 'Your message has been sent successfully! We will get back to you soon.';
+                    messageDiv.style.display = 'block';
+                    
+                    // Reset form after successful submission
+                    document.getElementById('contactForm').reset();
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = 'There was a problem sending your message. Please try again or call us directly.';
+                    messageDiv.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = 'There was a problem sending your message. Please try again or call us directly.';
+                messageDiv.style.display = 'block';
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.textContent = 'Send Message';
+                btnLoading.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
