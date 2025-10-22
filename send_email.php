@@ -14,18 +14,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Email details
     $to = "solarassist25@gmail.com";
-    $subject = "New Contact Form Submission - Solar Assist";
+    $subject = "Solar Assist Contact Form: " . $service;
     
     // Email body
-    $body = "You have received a new message from your website contact form.\n\n";
-    $body .= "Email: $email\n";
-    $body .= "Service Required: $service\n";
-    $body .= "Solar System Type: $systemType\n";
-    $body .= "Message:\n$message\n";
+    $body = "New contact form submission from Solar Assist website:\n\n";
+    $body .= "Email: " . $email . "\n";
+    $body .= "Service Required: " . $service . "\n";
+    $body .= "Solar System Type: " . $systemType . "\n";
+    $body .= "Message: " . $message . "\n\n";
+    $body .= "Sent from: www.solarassist.in";
     
     // Email headers
-    $headers = "From: $email" . "\r\n";
-    $headers .= "Reply-To: $email" . "\r\n";
+    $headers = "From: " . $email . "\r\n";
+    $headers .= "Reply-To: " . $email . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
     
     // Send email
