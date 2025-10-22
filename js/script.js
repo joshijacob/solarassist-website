@@ -1,62 +1,86 @@
-// Mobile menu toggle
-document.querySelector('.mobile-toggle')?.addEventListener('click', function() {
-    document.querySelector('.nav-menu').classList.toggle('active');
-});
-
-// Form submission for contact page
-document.getElementById('contactForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
+// Mobile Menu Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
     
-    // Get form data
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const message = document.getElementById('message').value;
-    
-    // Simple form validation
-    if (!name || !email || !phone || !message) {
-        alert('Please fill in all fields');
-        return;
+    if (mobileMenuBtn && mobileNav) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+        });
     }
     
-    // Create mailto link
-    const subject = `Solar Assist Inquiry from ${name}`;
-    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AMessage: ${message}`;
-    const mailtoLink = `mailto:solanasist25@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (mobileNav && mobileNav.classList.contains('active') && 
+            !mobileNav.contains(event.target) && 
+            !mobileMenuBtn.contains(event.target)) {
+            mobileNav.classList.remove('active');
+        }
+    });
     
-    // Open email client
-    window.location.href = mailtoLink;
+    // Contact form handling
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
     
-    // Reset form
-    this.reset();
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            
+            // Send to Formspree
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Show success message
+                    if (formSuccess) {
+                        formSuccess.style.display = 'block';
+                    }
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        if (formSuccess) {
+                            formSuccess.style.display = 'none';
+                        }
+                    }, 5000);
+                } else {
+                    alert('There was a problem sending your message. Please try again or call us directly.');
+                }
+            }).catch(error => {
+                alert('There was a problem sending your message. Please try again or call us directly.');
+            }).finally(() => {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
     
-    // Show success message
-    alert('Thank you for your message! Your email client will open to send the message.');
-});
-
-// Set active page based on current URL
-document.addEventListener('DOMContentLoaded', function() {
+    // Set active navigation based on current page
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
         if (linkHref === currentPage) {
-            link.classList.add('active-page');
+            link.classList.add('active');
         } else {
-            link.classList.remove('active-page');
+            link.classList.remove('active');
         }
     });
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', function(e) {
-    const navMenu = document.querySelector('.nav-menu');
-    const mobileToggle = document.querySelector('.mobile-toggle');
-    
-    if (navMenu?.classList.contains('active') && 
-        !e.target.closest('.nav-menu') && 
-        !e.target.closest('.mobile-toggle')) {
-        navMenu.classList.remove('active');
-    }
 });
