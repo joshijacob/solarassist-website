@@ -1,6 +1,6 @@
-/* =========================
-   RESET & VARIABLES
-========================= */
+/* =====================================================
+   1. RESET & VARIABLES
+===================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -30,9 +30,9 @@ body {
     overflow-x: hidden;
 }
 
-/* =========================
-   CONTAINER
-========================= */
+/* =====================================================
+   2. GLOBAL LAYOUT
+===================================================== */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -52,30 +52,27 @@ body {
     text-align: center;
 }
 
-/* =========================
-   HEADER (FIXED & SLIM)
-========================= */
+/* =====================================================
+   3. HEADER & NAVIGATION (FIXED + SLIM)
+===================================================== */
 header {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 58px;               /* 🔒 LOCKED HEIGHT */
+    height: 58px;
     background: #fff;
     z-index: 1000;
     box-shadow: 0 1px 6px rgba(0,0,0,0.08);
 }
 
 .header-container {
-    height: 58px;               /* Match header height */
+    height: 58px;
     display: flex;
-    align-items: center;        /* Vertical centering */
+    align-items: center;
     justify-content: space-between;
-    padding: 0 20px;            /* Removed vertical padding */
 }
 
-/* =========================
-   LOGO
-========================= */
+/* Logo */
 .logo a {
     display: flex;
     align-items: center;
@@ -83,7 +80,7 @@ header {
 }
 
 .logo-icon {
-    font-size: 20px;            /* Reduced from 24px */
+    font-size: 20px;
     color: var(--primary);
     margin-right: 6px;
 }
@@ -98,9 +95,7 @@ header {
     color: var(--primary);
 }
 
-/* =========================
-   NAVIGATION
-========================= */
+/* Desktop Nav */
 .nav-menu {
     display: flex;
     gap: 20px;
@@ -111,8 +106,8 @@ header {
     color: var(--dark);
     font-weight: 500;
     font-size: 14px;
+    line-height: 58px;
     position: relative;
-    line-height: 58px;          /* 🔒 Align text perfectly */
 }
 
 .nav-menu a:hover,
@@ -123,8 +118,8 @@ header {
 .nav-menu a::after {
     content: '';
     position: absolute;
-    left: 0;
     bottom: 16px;
+    left: 0;
     width: 0;
     height: 2px;
     background: var(--primary);
@@ -136,16 +131,17 @@ header {
     width: 100%;
 }
 
-/* =========================
-   CTA BUTTONS (HEADER SAFE)
-========================= */
+/* Header CTA Buttons */
 .cta-buttons {
     display: flex;
     gap: 10px;
 }
 
+/* =====================================================
+   4. BUTTONS (GLOBAL)
+===================================================== */
 .btn {
-    padding: 6px 14px;          /* 🔒 Reduced height */
+    padding: 6px 14px;
     border-radius: 5px;
     font-weight: 600;
     font-size: 14px;
@@ -156,6 +152,7 @@ header {
     cursor: pointer;
     border: none;
     white-space: nowrap;
+    transition: 0.3s;
 }
 
 .btn-primary {
@@ -182,9 +179,14 @@ header {
     color: var(--primary);
 }
 
-/* =========================
-   MOBILE MENU BUTTON
-========================= */
+.btn-outline:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* =====================================================
+   5. MOBILE NAVIGATION
+===================================================== */
 .mobile-menu-btn {
     display: none;
     background: none;
@@ -194,12 +196,9 @@ header {
     color: var(--dark);
 }
 
-/* =========================
-   MOBILE NAV
-========================= */
 .mobile-nav {
     position: fixed;
-    top: 58px;                  /* Match header */
+    top: 58px;
     left: 0;
     width: 100%;
     background: #fff;
@@ -225,11 +224,11 @@ header {
     flex-direction: column;
 }
 
-/* =========================
-   HERO SECTION (FIXED GAP)
-========================= */
+/* =====================================================
+   6. HERO SECTION
+===================================================== */
 .hero {
-    margin-top: 58px;           /* 🔒 Matches header */
+    margin-top: 58px;
     padding: 120px 20px 80px;
     background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
     url('https://images.unsplash.com/photo-1509391366360-2e959784a276') center/cover;
@@ -252,9 +251,155 @@ header {
     justify-content: center;
 }
 
-/* =========================
-   STICKY MOBILE CTA
-========================= */
+/* =====================================================
+   7. SERVICES, FEATURES & CARDS
+===================================================== */
+.services-grid,
+.features,
+.quick-services,
+.testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.service-card,
+.feature,
+.quick-service,
+.testimonial {
+    background: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.service-card:hover,
+.feature:hover,
+.quick-service:hover,
+.testimonial:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.service-icon {
+    background: var(--primary);
+    color: #fff;
+    font-size: 36px;
+    padding: 20px;
+    text-align: center;
+}
+
+.service-content h3,
+.feature h3,
+.quick-service h3 {
+    margin-bottom: 10px;
+}
+
+.service-content ul {
+    list-style: none;
+    margin: 12px 0;
+}
+
+.service-content li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.service-content li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+}
+
+/* =====================================================
+   8. CONTACT & FORMS
+===================================================== */
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+}
+
+.contact-form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.form-success {
+    display: none;
+    background: var(--success);
+    color: #fff;
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* =====================================================
+   9. FOOTER
+===================================================== */
+footer {
+    background: var(--dark);
+    color: #fff;
+    padding: 50px 0 25px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 35px;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+.contact-info a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 25px;
+}
+
+/* =====================================================
+   10. STICKY MOBILE CTA
+===================================================== */
 .sticky-cta {
     position: fixed;
     bottom: 0;
@@ -281,9 +426,9 @@ header {
     background: #25D366;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* =====================================================
+   11. RESPONSIVE
+===================================================== */
 @media (max-width: 992px) {
     .nav-menu,
     .cta-buttons {
