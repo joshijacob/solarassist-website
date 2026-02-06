@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "routes": [
+    { "src": "^/services/?$", "dest": "/services/index.html" },
+    { "src": "^/about/?$", "dest": "/about/index.html" },
+    { "src": "^/contact/?$", "dest": "/contact/index.html" },
+    { "src": "^/why-choose-us/?$", "dest": "/why-choose-us/index.html" },
+    { "src": "^/testimonials/?$", "dest": "/testimonials/index.html" }
+  ]
+}
