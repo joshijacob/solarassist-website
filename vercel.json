@@ -1,9 +1,0 @@
-{
-  "filesystem": false,
-
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/services", "destination": "/services/index.html" },
-   
-  ]
-}
