@@ -476,3 +476,8 @@ footer {
   opacity: 1;
   transform: scale(1.05);
 }
+.business-hours p {
+  font-size: 14px;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
