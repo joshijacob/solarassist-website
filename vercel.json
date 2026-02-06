@@ -1,14 +1,11 @@
 {
-  "trailingSlash": true,
+  "filesystem": false,
 
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/services", "destination": "/services/index.html" },
-    { "source": "/services/", "destination": "/services/index.html" },
-
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/testimonials", "destination": "/testimonials.html" },
-    { "source": "/why-choose-us", "destination": "/why-choose-us.html" }
+   
   ]
+}
+
 }
