@@ -1,86 +1,136 @@
-// Mobile Menu Toggle
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
+    /* =========================================
+       MOBILE MENU TOGGLE
+    ========================================= */
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileNav = document.getElementById('mobileNav');
-    
+
     if (mobileMenuBtn && mobileNav) {
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
             mobileNav.classList.toggle('active');
         });
+
+        document.addEventListener('click', function (event) {
+            if (
+                mobileNav.classList.contains('active') &&
+                !mobileNav.contains(event.target) &&
+                !mobileMenuBtn.contains(event.target)
+            ) {
+                mobileNav.classList.remove('active');
+            }
+        });
     }
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (mobileNav && mobileNav.classList.contains('active') && 
-            !mobileNav.contains(event.target) && 
-            !mobileMenuBtn.contains(event.target)) {
-            mobileNav.classList.remove('active');
-        }
-    });
-    
-    // Contact form handling
+
+    /* =========================================
+       STICKY CTA SMART VISIBILITY
+       (Hide when footer or form is visible)
+    ========================================= */
+    const stickyCTA = document.querySelector('.sticky-cta');
     const contactForm = document.getElementById('contactForm');
+    const footer = document.querySelector('footer');
+
+    if (stickyCTA) {
+        window.addEventListener('scroll', function () {
+            let hideCTA = false;
+
+            if (contactForm) {
+                const formRect = contactForm.getBoundingClientRect();
+                if (formRect.top < window.innerHeight && formRect.bottom > 0) {
+                    hideCTA = true;
+                }
+            }
+
+            if (footer) {
+                const footerRect = footer.getBoundingClientRect();
+                if (footerRect.top < window.innerHeight) {
+                    hideCTA = true;
+                }
+            }
+
+            stickyCTA.style.display = hideCTA ? 'none' : 'flex';
+        });
+    }
+
+    /* =========================================
+       CONTACT FORM HANDLING (FORMPREE)
+    ========================================= */
     const formSuccess = document.getElementById('formSuccess');
-    
+
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
-            // Show loading state
+
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            submitBtn.innerHTML = '⏳ Sending...';
             submitBtn.disabled = true;
-            
-            // Get form data
+
             const formData = new FormData(contactForm);
-            
-            // Send to Formspree
+
+            /* 🔥 Lead intent tagging */
+            formData.append('page', window.location.pathname);
+            formData.append('source', document.referrer || 'Direct');
+            formData.append('device', window.innerWidth <= 768 ? 'Mobile' : 'Desktop');
+
             fetch(contactForm.action, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Form error');
+
+                if (formSuccess) {
+                    formSuccess.style.display = 'block';
                 }
-            }).then(response => {
-                if (response.ok) {
-                    // Show success message
-                    if (formSuccess) {
-                        formSuccess.style.display = 'block';
-                    }
-                    
-                    // Reset form
-                    contactForm.reset();
-                    
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        if (formSuccess) {
-                            formSuccess.style.display = 'none';
-                        }
-                    }, 5000);
-                } else {
-                    alert('There was a problem sending your message. Please try again or call us directly.');
-                }
-            }).catch(error => {
-                alert('There was a problem sending your message. Please try again or call us directly.');
-            }).finally(() => {
-                // Reset button state
+
+                contactForm.reset();
+
+                setTimeout(() => {
+                    if (formSuccess) formSuccess.style.display = 'none';
+                }, 5000);
+
+            })
+            .catch(() => {
+                alert('Unable to send request. Please call or WhatsApp us for faster support.');
+            })
+            .finally(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             });
         });
     }
-    
-    // Set active navigation based on current page
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    /* =========================================
+       ACTIVE NAV LINK (SEO + UX)
+    ========================================= */
+    const currentPath = window.location.pathname.replace('/', '') || 'index.html';
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     navLinks.forEach(link => {
-        const linkHref = link.getAttribute('href');
-        if (linkHref === currentPage) {
+        const href = link.getAttribute('href');
+        if (href === currentPath) {
             link.classList.add('active');
-        } else {
-            link.classList.remove('active');
         }
     });
+
+    /* =========================================
+       CLICK TRACKING HOOKS (ADS READY)
+       (GA4 / Google Ads can hook later)
+    ========================================= */
+    document.querySelectorAll('[data-track]').forEach(el => {
+        el.addEventListener('click', function () {
+            const eventName = el.getAttribute('data-track');
+
+            if (window.gtag) {
+                gtag('event', eventName, {
+                    page_location: window.location.href
+                });
+            }
+        });
+    });
+
 });
